@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Head from "next/head";
 import styled from "styled-components";
+import Layout from "../../components/layout";
 
 const Title = styled.h1`
   font-size: 20px;
@@ -9,12 +10,12 @@ const Title = styled.h1`
 
 export default function FirstPost() {
   return (
-    <>
+    <Layout>
       <Head>
         <title>First Post</title>
       </Head>
       <div>
-        <h1>First Post</h1>
+        <h1 className="globalTest">First Post</h1>
         <Title theme={{ color: "red" }}>style components</Title>
         <div className="text-3xl font-bold underline">tailwind css</div>
         <h2>
@@ -31,6 +32,6 @@ export default function FirstPost() {
           }
         `}</style>
       </div>
-    </>
+    </Layout>
   );
 }
