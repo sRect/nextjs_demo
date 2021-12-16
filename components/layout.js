@@ -8,9 +8,6 @@ const name = "Giao Giao Giao";
 export const siteTitle = "Next.js Sample Website";
 
 export default function Layout({ children, home }) {
-  console.log("home==>", home);
-  console.log("children==>", children);
-
   return (
     <div className={styles.container}>
       <Head>
