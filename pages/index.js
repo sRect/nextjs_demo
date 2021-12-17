@@ -3,6 +3,7 @@ import Link from "next/link";
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
+import Date from "../components/date";
 
 // 静态生成-获取数据
 export async function getStaticProps() {
@@ -34,15 +35,15 @@ export default function Home({ allPostsData }) {
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title, subTitle }) => (
+          {allPostsData.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
-              title: {title}
+              <Link href={`/posts/${id}`}>
+                <a>{title}</a>
+              </Link>
               <br />
-              subTitle: {subTitle}
-              <br />
-              id: {id}
-              <br />
-              date: {date}
+              <small className={utilStyles.lightText}>
+                <Date dateString={date} />
+              </small>
             </li>
           ))}
         </ul>

@@ -1,6 +1,9 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Layout from "../../components/layout";
 import { getAllPostIds, getPostData } from "../../lib/posts2";
+import Date from "../../components/date";
+import utilStyles from "../../styles/utils.module.css";
 
 // https://www.nextjs.cn/learn/basics/dynamic-routes/page-path-external-data
 
@@ -61,19 +64,16 @@ export default function Post({ postData }) {
 
   return (
     <Layout>
-      title: {postData.title}
-      <br />
-      id: {postData.id}
-      <br />
-      date: {postData.date}
-      <br />
-      <h3>article content:</h3>
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-      <style jsx>{`
-        h3 {
-          font-size: 24px;
-        }
-      `}</style>
+      <Head>
+        <title>{postData.title}</title>
+      </Head>
+      <article>
+        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+        <div className={utilStyles.lightText}>
+          <Date dateString={postData.date} />
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      </article>
     </Layout>
   );
 }
