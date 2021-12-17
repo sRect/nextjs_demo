@@ -1,9 +1,11 @@
-import Layout from "../../components/layout";
 import { useRouter } from "next/router";
+import Layout from "../../components/layout";
 import { getAllPostIds, getPostData } from "../../lib/posts2";
 
+// https://www.nextjs.cn/learn/basics/dynamic-routes/page-path-external-data
+
 export async function getStaticPaths() {
-  console.log("getStaticPaths===>");
+  // Return a list of possible value for id
   const paths = getAllPostIds();
 
   console.log("paths==>", paths);
@@ -16,7 +18,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(args) {
-  console.log("getStaticProps===>");
+  // Fetch necessary data for the blog post using params.id
   console.log("args==>", args);
   /**
    *  {
@@ -27,7 +29,7 @@ export async function getStaticProps(args) {
       }
    */
   const { params } = args;
-  const postData = getPostData(params.id);
+  const postData = await getPostData(params.id);
   return {
     props: {
       postData,
@@ -64,6 +66,14 @@ export default function Post({ postData }) {
       id: {postData.id}
       <br />
       date: {postData.date}
+      <br />
+      <h3>article content:</h3>
+      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <style jsx>{`
+        h3 {
+          font-size: 24px;
+        }
+      `}</style>
     </Layout>
   );
 }
