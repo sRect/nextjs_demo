@@ -1,7 +1,8 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { List } from "antd";
+import { List, Divider } from "antd";
 
 export default function UseRouterPage() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function UseRouterPage() {
         <title>UseRouter</title>
       </Head>
       <List
-        header={<div>UseRouter page</div>}
+        header={<div>UseRouter page </div>}
         bordered
         dataSource={Object.keys(params)}
         renderItem={(key) => (
@@ -27,6 +28,11 @@ export default function UseRouterPage() {
           </List.Item>
         )}
       />
+
+      <Divider orientation="left">hash 监听测试</Divider>
+      <Link href="#hello">
+        <a>点击</a>
+      </Link>
     </>
   );
 }

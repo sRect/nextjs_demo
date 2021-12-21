@@ -14,9 +14,6 @@ export default function Forbidden() {
         message.warning("路由拦截");
         return false;
       }
-      console.log("url==>", url);
-      console.log("as==>", as);
-      console.log("options==>", options);
 
       return true;
     });
