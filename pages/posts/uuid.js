@@ -2,7 +2,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 // import { useRouter } from "next/router";
 import { useState, Fragment } from "react";
-import { Card, Button, Typography, Divider } from "antd";
+import { Card, Button, Typography, Divider, Spin } from "antd";
 import debounce from "lodash/debounce";
 // import DynamiComponent from "../../components/dynamiComponent";
 
@@ -10,7 +10,8 @@ import debounce from "lodash/debounce";
 const DynamiComponent = dynamic(
   import(
     /*webpackChunkName dynamiComponent*/ "../../components/dynamiComponent"
-  )
+  ),
+  { loading: () => <Spin /> }
 );
 
 async function getUuid() {
