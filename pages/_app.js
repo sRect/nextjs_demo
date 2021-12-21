@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { message } from "antd";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
@@ -7,6 +8,7 @@ function MyApp({ Component, pageProps }) {
 
   const handleRouteChange = (...args) => {
     console.log(`url: ${args[0]}, shallow: ${args[1].shallow}`);
+    message.destroy();
   };
 
   const handleRouteChangeError = (err, url) => {
@@ -17,6 +19,8 @@ function MyApp({ Component, pageProps }) {
 
   const handleHashChangeStart = (url, { shallow }) => {
     console.log(`handleHashChangeStart==>url: ${url}, shallow: ${shallow}`);
+    message.destroy();
+    message.info(`hash change:${url}`);
   };
 
   const handleHashChangeComplete = (url, { shallow }) => {
