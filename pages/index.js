@@ -1,5 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { Button, Space } from "antd";
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
@@ -19,6 +22,31 @@ export async function getStaticProps() {
 }
 
 export default function Home({ allPostsData }) {
+  const router = useRouter();
+
+  const gotoUseRouter = (e) => {
+    e.preventDefault();
+    router.push({
+      pathname: "/posts/use-router",
+      query: {
+        a: 1,
+        b: [1, 2, 3],
+        c: {
+          hello: 1,
+        },
+        d: JSON.stringify({
+          hello: 1,
+        }),
+        e: true,
+      },
+    });
+  };
+
+  useEffect(() => {
+    // Prefetch the dashboard page
+    router.prefetch("/posts/use-router");
+  }, [router]);
+
   return (
     <Layout home>
       <Head>
@@ -50,9 +78,17 @@ export default function Home({ allPostsData }) {
       </section>
 
       <footer>
-        <Link href="/posts/first-post">
-          <a>--goto first-post--</a>
-        </Link>
+        <Space>
+          <Link href="/posts/first-post">
+            <a>--goto first-post--</a>
+          </Link>
+          <Button type="link" onClick={gotoUseRouter}>
+            goto useRouter
+          </Button>
+          <Button type="link" onClick={() => router.push("/posts/forbidden")}>
+            goto forbidden
+          </Button>
+        </Space>
       </footer>
     </Layout>
   );
