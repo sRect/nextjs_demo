@@ -45,6 +45,7 @@ export default function Home({ allPostsData }) {
   useEffect(() => {
     // Prefetch the dashboard page
     router.prefetch("/posts/use-router");
+    router.prefetch("/posts/uuid");
   }, [router]);
 
   return (
@@ -87,6 +88,9 @@ export default function Home({ allPostsData }) {
           </Button>
           <Button type="link" onClick={() => router.push("/posts/forbidden")}>
             goto forbidden
+          </Button>
+          <Button type="link" onClick={() => router.push("/posts/uuid")}>
+            uuid
           </Button>
         </Space>
       </footer>
