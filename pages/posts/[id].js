@@ -1,9 +1,14 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
+// import Script from "next/script";
+// import { useRouter } from "next/router";
+import { useEffect } from "react";
 import Layout from "../../components/layout";
 import { getAllPostIds, getPostData } from "../../lib/posts2";
 import Date from "../../components/date";
 import utilStyles from "../../styles/utils.module.css";
+import hljs from "highlight.js";
+import "github-markdown-css/github-markdown.css";
+import "highlight.js/styles/github.css";
 
 // https://www.nextjs.cn/learn/basics/dynamic-routes/page-path-external-data
 
@@ -11,7 +16,7 @@ export async function getStaticPaths() {
   // Return a list of possible value for id
   const paths = getAllPostIds();
 
-  console.log("paths==>", paths);
+  // console.log("paths==>", paths);
   // [ { params: { id: 'pre-rendering' } }, { params: { id: 'ssg-ssr' } } ]
 
   return {
@@ -22,7 +27,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(args) {
   // Fetch necessary data for the blog post using params.id
-  console.log("args==>", args);
+  // console.log("args==>", args);
   /**
    *  {
         params: { id: 'pre-rendering' },
@@ -41,9 +46,9 @@ export async function getStaticProps(args) {
 }
 
 export default function Post({ postData }) {
-  const router = useRouter();
+  // const router = useRouter();
 
-  console.log("router==>", router);
+  // console.log("router==>", router);
   /**
    * ServerRouter {
       route: '/posts/[id]',
@@ -62,6 +67,13 @@ export default function Post({ postData }) {
     }
    */
 
+  useEffect(() => {
+    const codeElList = document.querySelectorAll("pre code");
+    [...codeElList].forEach((el) => {
+      hljs.highlightElement(el);
+    });
+  }, []);
+
   return (
     <Layout>
       <Head>
@@ -72,7 +84,10 @@ export default function Post({ postData }) {
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <div
+          className="markdown-body"
+          dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+        />
       </article>
     </Layout>
   );

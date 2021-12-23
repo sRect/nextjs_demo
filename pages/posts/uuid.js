@@ -11,7 +11,10 @@ const DynamiComponent = dynamic(
   import(
     /*webpackChunkName dynamiComponent*/ "../../components/dynamiComponent"
   ),
-  { loading: () => <Spin /> }
+  {
+    loading: () => <Spin />,
+    ssr: false, // 当模块仅在客户端工作
+  }
 );
 
 async function getUuid() {
