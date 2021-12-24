@@ -15,20 +15,18 @@ APP_PATH=/app
 # 设置工作目录
 WORKDIR $APP_PATH
 
-# 拷贝package.json和yarn.lock 到工作根目录下
-COPY package.json yarn.lock ./
+COPY . $APP_PATH
 
-# 设置npm镜像为国内淘宝镜像
-RUN yarn config set registry https://registry.npm.taobao.org
+# 设置npm镜像为国内淘宝镜像，加快安装速度
+# RUN yarn config set registry https://registry.npm.taobao.org
 
 RUN yarn install
 
 RUN yarn run build
 
-COPY . .
-
 CMD ["yarn", "start"]
 
+## ===>2
 # FROM node:14-alpine
 # COPY . /usr/share/nginx/next_js
 # WORKDIR /usr/share/nginx/next_js
@@ -37,6 +35,7 @@ CMD ["yarn", "start"]
 # EXPOSE 3000
 # CMD ["npm", "start"]
 
+## ===>1
 # https://www.nextjs.cn/docs/deployment#docker-image
 # next.js官方提供的Dockerfile
 # # Install dependencies only when needed
