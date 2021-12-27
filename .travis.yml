@@ -1,0 +1,14 @@
+# https://docs.travis-ci.com/user/languages/javascript-with-nodejs
+language: node_js
+node_js:
+  - 14
+branchs:
+  only:
+    - master
+cache:
+  directories:
+    - node_modules
+install:
+  - yarn install
+scripts:
+  - yarn build
