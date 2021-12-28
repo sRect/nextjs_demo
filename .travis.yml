@@ -2,13 +2,25 @@
 language: node_js
 node_js:
   - 14
+env:
+  - NODE_ENV="production"
 branchs:
   only:
-    - master
+    - main
 cache:
   directories:
     - node_modules
+before_install:
+  - npm install yarn -g
 install:
   - yarn install
 scripts:
-  - yarn build
+  - yarn build && yarn start
+# https://docs.travis-ci.com/user/deployment/pages/
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: main
