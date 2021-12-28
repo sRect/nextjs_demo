@@ -10,7 +10,7 @@ export default function Custom404() {
       extra={
         <Link href="/">
           <a>
-            <Button type="link">Back Home!</Button>
+            <Button type="link">Back Home!!</Button>
           </a>
         </Link>
       }
