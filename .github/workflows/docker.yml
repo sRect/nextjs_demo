@@ -46,10 +46,10 @@ jobs:
       - name: ssh deploy
         uses: fifsky/ssh-action@master
         with:
-        command: |
-          cd /
-          docker login --username=${{ secrets.ALIYUN_DOCKER_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password=${{ secrets.ALIYUN_DOCKER_PASSWORD }}
-          docker pull registry.cn-hangzhou.aliyuncs.com/test-blog/blog:latest
-        host: ${{ secrets.HOST }}
-        user: { { secrets.USER } }
-        pass: ${{ secrets.PASSWORD}}
+          command: |
+            cd /
+            docker login --username=${{ secrets.ALIYUN_DOCKER_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password=${{ secrets.ALIYUN_DOCKER_PASSWORD }}
+            docker pull registry.cn-hangzhou.aliyuncs.com/test-blog/blog:latest
+          host: ${{ secrets.HOST }}
+          user: { { secrets.USER } }
+          pass: ${{ secrets.PASSWORD}}
