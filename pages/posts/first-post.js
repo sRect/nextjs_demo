@@ -20,7 +20,7 @@ export default function FirstPost() {
         <div className="text-3xl font-bold underline">tailwind css</div>
         <h2>
           <Link href="/">
-            <a> Back to home </a>
+            <a> Back to home!!! </a>
           </Link>
         </h2>
         <style jsx>{`
