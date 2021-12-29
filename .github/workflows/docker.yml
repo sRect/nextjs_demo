@@ -42,15 +42,32 @@ jobs:
           docker image build -t myblob:latest .
           docker tag myblob registry.cn-hangzhou.aliyuncs.com/test-blog/blog:latest
           docker push registry.cn-hangzhou.aliyuncs.com/test-blog/blog:latest
-      # 登录远程服务器，拉取镜像
+      # 登录远程服务器，拉取镜像，制作并重启容器
       # https://github.com/marketplace/actions/remote-ssh-commands
       - name: ssh deploy
         uses: fifsky/ssh-action@master
         with:
           command: |
             cd /
+            echo -e "1.docker login start==>"
             docker login --username=${{ secrets.ALIYUN_DOCKER_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password=${{ secrets.ALIYUN_DOCKER_PASSWORD }}
+
+            echo -e "2.docker stop myblog container==>"
+            docker container stop myblog
+
+            echo -e "3.docker conatainer rm==>"
+            docker container rm myblog
+
+            echo -e "4.docker image rm==>"
+            docker image rm registry.cn-hangzhou.aliyuncs.com/test-blog/blog:latest
+
+            echo -e "5.docker pull==>"
             docker pull registry.cn-hangzhou.aliyuncs.com/test-blog/blog:latest
+
+            echo -e "6.docker container create and start==>"
+            docker container run -d -p 80:3000 --name myblog registry.cn-hangzhou.aliyuncs.com/test-blog/blog:latest
+
+            echo -e "7.deploy success==>"
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USER }}
           pass: ${{ secrets.PASSWORD }}
