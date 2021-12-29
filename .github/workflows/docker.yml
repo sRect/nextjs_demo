@@ -42,3 +42,14 @@ jobs:
           docker image build -t myblob:latest .
           docker tag myblob registry.cn-hangzhou.aliyuncs.com/test-blog/blog:latest
           docker push registry.cn-hangzhou.aliyuncs.com/test-blog/blog:latest
+      # 登录远程服务器，拉取镜像
+      - name: ssh deploy
+        uses: fifsky/ssh-action@master
+        with:
+        command: |
+          cd /
+          docker login --username=${{ secrets.ALIYUN_DOCKER_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password=${{ secrets.ALIYUN_DOCKER_PASSWORD }}
+          docker pull registry.cn-hangzhou.aliyuncs.com/test-blog/blog:latest
+        host: ${{ secrets.HOST }}
+        user: { { secrets.USER } }
+        pass: ${{ secrets.PASSWORD}}
