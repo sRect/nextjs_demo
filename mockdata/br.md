@@ -68,7 +68,7 @@ sudo yum install epel-release -y
 2. 再安装
 
 ```
-# 实际测试，这一步在我的屌丝1核2G的CentOS 7.6 64位上未能安装
+# 实际测试，这一步在我的屌丝1核2G的CentOS 7.6 64位上 未能安装
 # Loaded plugins: fastestmirror
 # Loading mirror speeds from cached hostfile
 # No package nginx-plus-module-brotli available.
